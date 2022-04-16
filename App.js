@@ -1,14 +1,22 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import React, { useState,useContext } from 'react';
+import { StyleSheet, Text, View ,StatusBar} from 'react-native';
 
 import Keyboard from './src/Component/Keyboard';
+import AuthProvider from './src/Context/Context';
+import Grid from './src/Component/Grid';
 
 export default function App() {
+
   return (
     <View style={styles.container}>
-      <Text>Open up App.js to stasrt workingg on your app!</Text>
+      <AuthProvider>
+      <View style={styles.containerTexto}>
+        <Grid></Grid>
+      </View>
       <Keyboard></Keyboard>
-      <StatusBar style="auto" />
+      <StatusBar backgroundColor="#131313" barStyle="light-content" />
+      </AuthProvider>
+
     </View>
   );
 }
@@ -21,4 +29,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     padding:20
   },
+  containerTexto:{
+    marginTop:300
+  }
 });
