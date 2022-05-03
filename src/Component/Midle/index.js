@@ -40,10 +40,14 @@ const styles = StyleSheet.create({
    width:'17%',
    height:60,
    borderWidth:1,
-   borderColor:'#787d7d'
+   borderColor:'#787d7d',
+   alignItems: 'center',
+      justifyContent: 'center'
   },
   containerText:{
-      color:'white'
+      color:'white',
+      alignItems: 'center',
+      justifyContent: 'center',
   }
 });
 

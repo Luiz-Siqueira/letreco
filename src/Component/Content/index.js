@@ -4,7 +4,7 @@ import { StyleSheet, Text, View,TouchableOpacity,StatusBar } from 'react-native'
 
 import { AuthContext } from '../../Context/Context'
 
-export default function content() {
+export default function Content({param}) {
 
   //fazer um component para palavra pronta, para palavra escrevendo e para defalt
   const {textKeyboard} = useContext(AuthContext);
@@ -12,11 +12,11 @@ export default function content() {
   return (
     <View style={styles.container}>
         <View style={styles.container2}>
-          <View style={styles.containerBox}></View>
-          <View style={styles.containerBox}></View>
-          <View style={styles.containerBox}></View>
-          <View style={styles.containerBox}></View>
-          <View style={styles.containerBox}></View>
+          <View style={styles.containerBox}><Text style={styles.containerBoxText}>{param[0]}</Text></View>
+          <View style={styles.containerBox}><Text style={styles.containerBoxText}>{param[1]}</Text></View>
+          <View style={styles.containerBox}><Text style={styles.containerBoxText}>{param[2]}</Text></View>
+          <View style={styles.containerBox}><Text style={styles.containerBoxText}>{param[3]}</Text></View>
+          <View style={styles.containerBox}><Text style={styles.containerBoxText}>{param[4]}</Text></View>
         </View>
     </View>
   );
@@ -42,6 +42,11 @@ const styles = StyleSheet.create({
    height:60,
    borderWidth:1,
    borderColor:'#3a3a3c',
-   backgroundColor:'#787d7d'
+   backgroundColor:'#787d7d',
+   alignItems: 'center',
+   justifyContent: 'center',
+  },
+  containerBoxText:{
+    color:'white'
   }
 });
