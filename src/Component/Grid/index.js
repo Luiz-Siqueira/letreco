@@ -1,5 +1,5 @@
 import React, { useState,useContext } from 'react';
-import { StyleSheet, Text, View,TouchableOpacity,StatusBar } from 'react-native';
+import { StyleSheet, Text, View,Animated,StatusBar,Easing } from 'react-native';
 
 
 import { AuthContext } from '../../Context/Context'
@@ -8,7 +8,6 @@ import Default from '../Default'
 import Midle from '../Midle'
 export default function Grid() {
   const {textKeyboard,arrPalavra} = useContext(AuthContext);
-
 
 var myloop = [];
 
@@ -50,6 +49,7 @@ for (let i = 0; i < 6; i++) {
 
 
     <View style={styles.container}>
+
       {myloop}
 
     </View>

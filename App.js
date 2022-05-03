@@ -9,6 +9,7 @@ export default function App() {
 
   return (
     <View style={styles.container}>
+      <View style={styles.containerTitle}><Text style={styles.containerText}>Letreco</Text></View>
       <AuthProvider>
       <View style={styles.containerTexto}>
         <Grid></Grid>
@@ -29,8 +30,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor:'#121213'
-
+    backgroundColor:'#121213',
   },
   containerTexto:{
     padding:20,
@@ -41,6 +41,19 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor:'#121213'
+    backgroundColor:'#121213',
+    marginTop:-100
+  },
+  containerTitle:{
+    width:'50%',
+    height:50,
+    justifyContent:'center',
+    alignItems:'center',
+    marginTop:10,
+  },
+  containerText:{
+    color:'white',
+    fontSize:40,
+    textTransform:'uppercase'
   }
 });

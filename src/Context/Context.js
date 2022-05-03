@@ -7,7 +7,7 @@ export default function AuthProvider({ children }) {
 
     const [textKeyboard,setTextKeyboard] = useState()
     const [arrPalavra,setArrPalavra] = useState([])
-
+    const [corGrid,setcorGrid] = useState([])
     function getText(param){
         if(textKeyboard){
             if (textKeyboard.length < 5)
@@ -19,8 +19,24 @@ export default function AuthProvider({ children }) {
 
     // quando clicado em enter vai colocar a paavra em um array
     function enterAction(){
-        setArrPalavra(oldArray => [...oldArray, textKeyboard])
-        setTextKeyboard('')
+        CheckText()
+        if(textKeyboard.length == 5){
+            setArrPalavra(oldArray => [...oldArray, textKeyboard])
+            setTextKeyboard('')
+        }
+    }
+
+    function CheckText() {
+        let palavra = ['A','V','I','A','O']
+        let palavraUser = textKeyboard.split('')
+        let color = [];
+        for (let index = 0; index < palavra.length; index++) {
+            if(textKeyboard.indexOf(palavra[index]) == 0){
+                console.log(textKeyboard[index])
+            }else{
+                console.log('erro')
+            }
+        }
     }
 
     function RemoveText(){
@@ -28,8 +44,6 @@ export default function AuthProvider({ children }) {
             if (textKeyboard.length > 0){
             setTextKeyboard(textKeyboard.substring(0, textKeyboard.length - 1))
             }
-        }else{
-            setTextKeyboard(param)
         }
     }
 

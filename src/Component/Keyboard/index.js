@@ -10,6 +10,8 @@ export default function Keyboard() {
 
   const {getText,enterAction,RemoveText} = useContext(AuthContext);
 
+
+
   return (
     <View style={styles.container}>
       <Caractere param={'A'}></Caractere>
@@ -49,7 +51,6 @@ const styles = StyleSheet.create({
     width:'100%',
     flexDirection:'row',
     flexWrap: 'wrap',
-    
   },
   keyboard:{
     backgroundColor:'black',
