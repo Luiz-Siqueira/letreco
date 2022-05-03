@@ -3,22 +3,21 @@ import { StyleSheet, Text, View,TouchableOpacity,StatusBar } from 'react-native'
 
 
 import { AuthContext } from '../../Context/Context'
-import Content from '../Content';
-import Default from '../Default'
-import Midle from '../Midle'
-export default function Grid() {
+
+export default function Default() {
 
   //fazer um component para palavra pronta, para palavra escrevendo e para defalt
   const {textKeyboard} = useContext(AuthContext);
 
   return (
     <View style={styles.container}>
-          <Content></Content>
-          <Midle></Midle>
-          <Default></Default>
-          <Default></Default>
-          <Default></Default>
-          <Default></Default>
+        <View style={styles.container2}>
+          <View style={styles.containerBox}></View>
+          <View style={styles.containerBox}></View>
+          <View style={styles.containerBox}></View>
+          <View style={styles.containerBox}></View>
+          <View style={styles.containerBox}></View>
+        </View>
     </View>
   );
 }
@@ -29,7 +28,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     flexDirection:'row',
     flexWrap: 'wrap',
-    marginBottom:30,
+    marginBottom:20,
   },
   container2:{
     width:'100%',
@@ -39,7 +38,7 @@ const styles = StyleSheet.create({
     alignContent:'space-between'
   },
   containerBox:{
-   width:'19%',
+   width:'17%',
    height:60,
    borderWidth:1,
    borderColor:'#3a3a3c'

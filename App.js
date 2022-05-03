@@ -12,7 +12,9 @@ export default function App() {
       <AuthProvider>
       <View style={styles.containerTexto}>
         <Grid></Grid>
+
       </View>
+      <View style={styles.containerKeyboard}></View>
       <Keyboard></Keyboard>
       <StatusBar backgroundColor="#131313" barStyle="light-content" />
       </AuthProvider>
@@ -27,9 +29,18 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     alignItems: 'center',
     justifyContent: 'center',
-    padding:20
+    backgroundColor:'#121213'
+
   },
   containerTexto:{
-    marginTop:300
+    padding:20,
+
+  },
+  containerKeyboard: {
+    flex: 1,
+    backgroundColor: '#fff',
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor:'#121213'
   }
 });

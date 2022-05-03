@@ -45,17 +45,16 @@ export default function Keyboard() {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
+    width:'100%',
     flexDirection:'row',
-    flexWrap: 'wrap'
+    flexWrap: 'wrap',
+    backgroundColor:'red',
+    
   },
   keyboard:{
     backgroundColor:'black',
     width:'20%',
-    height:'10%',
+    height:40,
     justifyContent:'center',
     alignItems:'center'
   },
@@ -65,7 +64,7 @@ const styles = StyleSheet.create({
   keyboard2:{
     backgroundColor:'black',
     width:'40%',
-    height:'10%',
+    height:40,
     justifyContent:'center',
     alignItems:'center'
   }
