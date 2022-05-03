@@ -5,11 +5,19 @@ export const AuthContext = createContext({});
 
 export default function AuthProvider({ children }) {
 
-    const [textKeyboard,setTextKeyboard] = useState([])
+    const [textKeyboard,setTextKeyboard] = useState()
 
     function getText(param){
-        setTextKeyboard(oldArray => [...oldArray, param])
+        console.log(textKeyboard)
+        if(textKeyboard){
+            if (textKeyboard.length < 5)
+            setTextKeyboard(textKeyboard + param)
+        }else{
+            setTextKeyboard(param)
+        }
     }
+
+    //fazer funcao para pegar palavra e colocar no array quando apertar enter
 
 
     return(

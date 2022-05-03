@@ -4,19 +4,18 @@ import { StyleSheet, Text, View,TouchableOpacity,StatusBar } from 'react-native'
 
 import { AuthContext } from '../../Context/Context'
 
-export default function Midle() {
+export default function Midle({param}) {
 
   //fazer um component para palavra pronta, para palavra escrevendo e para defalt
-  const {textKeyboard} = useContext(AuthContext);
 
   return (
     <View style={styles.container}>
         <View style={styles.container2}>
-          <View style={styles.containerBox}></View>
-          <View style={styles.containerBox}></View>
-          <View style={styles.containerBox}></View>
-          <View style={styles.containerBox}></View>
-          <View style={styles.containerBox}></View>
+          <View style={styles.containerBox}><Text style={styles.containerText}>{param ? param[0]:''}</Text></View>
+          <View style={styles.containerBox}><Text style={styles.containerText}>{param ? param[1]:''}</Text></View>
+          <View style={styles.containerBox}><Text style={styles.containerText}>{param ? param[2]:''}</Text></View>
+          <View style={styles.containerBox}><Text style={styles.containerText}>{param ? param[3]:''}</Text></View>
+          <View style={styles.containerBox}><Text style={styles.containerText}>{param ? param[4]:''}</Text></View>
         </View>
     </View>
   );
@@ -42,5 +41,10 @@ const styles = StyleSheet.create({
    height:60,
    borderWidth:1,
    borderColor:'#787d7d'
+  },
+  containerText:{
+      color:'white'
   }
 });
+
+

@@ -8,13 +8,12 @@ import Default from '../Default'
 import Midle from '../Midle'
 export default function Grid() {
 
-  //fazer um component para palavra pronta, para palavra escrevendo e para defalt
   const {textKeyboard} = useContext(AuthContext);
-
+//fazer passar array com texto como parametro para component
   return (
     <View style={styles.container}>
           <Content></Content>
-          <Midle></Midle>
+          <Midle param={textKeyboard}></Midle>
           <Default></Default>
           <Default></Default>
           <Default></Default>
