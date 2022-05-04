@@ -3,7 +3,7 @@ import { StyleSheet, Text, View, Easing, Animated } from "react-native";
 
 import { AuthContext } from "../../Context/Context";
 
-export default function Content({ param }) {
+export default function Content({ param,color }) {
   //fazer um component para palavra pronta, para palavra escrevendo e para defalt
   const { textKeyboard } = useContext(AuthContext);
 
@@ -31,6 +31,7 @@ export default function Content({ param }) {
             styles.containerBox,
             {
               transform: [{ rotateY: spin }],
+              backgroundColor:color[0]
             },
           ]}
         >
@@ -43,6 +44,7 @@ export default function Content({ param }) {
             styles.containerBox,
             {
               transform: [{ rotateY: spin }],
+              backgroundColor:color[1]
             },
           ]}
         >
@@ -55,6 +57,7 @@ export default function Content({ param }) {
             styles.containerBox,
             {
               transform: [{ rotateY: spin }],
+              backgroundColor:color[2]
             },
           ]}
         >
@@ -67,6 +70,7 @@ export default function Content({ param }) {
             styles.containerBox,
             {
               transform: [{ rotateY: spin }],
+              backgroundColor:color[3]
             },
           ]}
         >
@@ -79,6 +83,7 @@ export default function Content({ param }) {
             styles.containerBox,
             {
               transform: [{ rotateY: spin }],
+              backgroundColor:color[4]
             },
           ]}
         >

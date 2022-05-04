@@ -7,7 +7,7 @@ import Content from '../Content';
 import Default from '../Default'
 import Midle from '../Midle'
 export default function Grid() {
-  const {textKeyboard,arrPalavra} = useContext(AuthContext);
+  const {textKeyboard,arrPalavra,corGrid} = useContext(AuthContext);
 
 var myloop = [];
 
@@ -27,7 +27,7 @@ if(!arrPalavra[0]){
 for (let i = 0; i < 6; i++) {
   if(arrPalavra[i]){
     myloop.push(
-      <Content key={i}param={arrPalavra[i]}></Content>
+      <Content key={i} param={arrPalavra[i]} color={corGrid[i]}></Content>
     );
   }else{
     if(arrPalavra[i - 1]){
