@@ -1,72 +1,60 @@
-import React, { useState,useContext } from 'react';
-import { StyleSheet, Text, View,TouchableOpacity,StatusBar } from 'react-native';
+import React, { useState, useContext } from "react";
+import {
+  StyleSheet,
+  Text,
+  View,
+  TouchableOpacity,
+  StatusBar,
+} from "react-native";
 
-
-import { AuthContext } from '../../Context/Context'
-import Caractere from './Caractere'
+import { AuthContext } from "../../Context/Context";
+import Caractere from "./Caractere";
 export default function Keyboard() {
+  const { arrKeyboard,storageKeyboard, enterAction, RemoveText } = useContext(AuthContext);
 
+  var myloop = [];
 
-
-  const {getText,enterAction,RemoveText} = useContext(AuthContext);
-
-
+  for (let i = 0; i < arrKeyboard.teste.length; i++) {
+    if(i == 25){
+    myloop.push(<TouchableOpacity  key={i} onPress={() => enterAction()} style={styles.keyboard2}>
+    <Text style={styles.TextKeyboard}>{arrKeyboard.teste[i].caracter}</Text>
+  </TouchableOpacity>);
+    }else if(i == 27){
+      myloop.push(<TouchableOpacity key={i} onPress={() => RemoveText()} style={styles.keyboard2}>
+      <Text style={styles.TextKeyboard}>{arrKeyboard.teste[i].caracter}</Text>
+    </TouchableOpacity>);
+    }else
+    myloop.push(<Caractere key={i} param={arrKeyboard.teste[i].caracter} color={arrKeyboard.teste[i].color} ></Caractere>);
+  }
 
   return (
     <View style={styles.container}>
-      <Caractere param={'A'}></Caractere>
-      <Caractere param={'B'}></Caractere>
-      <Caractere param={'C'}></Caractere>
-      <Caractere param={'D'}></Caractere>
-      <Caractere param={'E'}></Caractere>
-      <Caractere param={'F'}></Caractere>
-      <Caractere param={'G'}></Caractere>
-      <Caractere param={'H'}></Caractere>
-      <Caractere param={'I'}></Caractere>
-      <Caractere param={'J'}></Caractere>
-      <Caractere param={'K'}></Caractere>
-      <Caractere param={'L'}></Caractere>
-      <Caractere param={'M'}></Caractere>
-      <Caractere param={'N'}></Caractere>
-      <Caractere param={'O'}></Caractere>
-      <Caractere param={'P'}></Caractere>
-      <Caractere param={'Q'}></Caractere>
-      <Caractere param={'R'}></Caractere>
-      <Caractere param={'S'}></Caractere>
-      <Caractere param={'T'}></Caractere>
-      <Caractere param={'U'}></Caractere>
-      <Caractere param={'V'}></Caractere>
-      <Caractere param={'W'}></Caractere>
-      <Caractere param={'X'}></Caractere>
-      <Caractere param={'Y'}></Caractere>
-      <TouchableOpacity onPress={()=>enterAction()} style={styles.keyboard2}><Text style={styles.TextKeyboard}>Enter</Text></TouchableOpacity>      
-      <Caractere param={'Z'}></Caractere>
-      <TouchableOpacity onPress={()=>RemoveText()} style={styles.keyboard2}><Text style={styles.TextKeyboard}>Remove</Text></TouchableOpacity>
+      {myloop}
     </View>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
-    width:'100%',
-    flexDirection:'row',
-    flexWrap: 'wrap',
+    width: "100%",
+    flexDirection: "row",
+    flexWrap: "wrap",
   },
-  keyboard:{
-    backgroundColor:'black',
-    width:'20%',
-    height:40,
-    justifyContent:'center',
-    alignItems:'center'
+  keyboard: {
+    backgroundColor: "black",
+    width: "20%",
+    height: 40,
+    justifyContent: "center",
+    alignItems: "center",
   },
-  TextKeyboard:{
-    color:'white'
+  TextKeyboard: {
+    color: "white",
   },
-  keyboard2:{
-    backgroundColor:'black',
-    width:'40%',
-    height:40,
-    justifyContent:'center',
-    alignItems:'center'
-  }
+  keyboard2: {
+    backgroundColor: "black",
+    width: "40%",
+    height: 40,
+    justifyContent: "center",
+    alignItems: "center",
+  },
 });
