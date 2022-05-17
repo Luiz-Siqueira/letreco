@@ -14,17 +14,17 @@ export default function Keyboard() {
 
   var myloop = [];
 
-  for (let i = 0; i < arrKeyboard.teste.length; i++) {
+  for (let i = 0; i < arrKeyboard.keyboard.length; i++) {
     if(i == 25){
     myloop.push(<TouchableOpacity  key={i} onPress={() => enterAction()} style={styles.keyboard2}>
-    <Text style={styles.TextKeyboard}>{arrKeyboard.teste[i].caracter}</Text>
+    <Text style={styles.TextKeyboard}>{arrKeyboard.keyboard[i].caracter}</Text>
   </TouchableOpacity>);
     }else if(i == 27){
       myloop.push(<TouchableOpacity key={i} onPress={() => RemoveText()} style={styles.keyboard2}>
-      <Text style={styles.TextKeyboard}>{arrKeyboard.teste[i].caracter}</Text>
+      <Text style={styles.TextKeyboard}>{arrKeyboard.keyboard[i].caracter}</Text>
     </TouchableOpacity>);
     }else
-    myloop.push(<Caractere key={i} param={arrKeyboard.teste[i].caracter} color={arrKeyboard.teste[i].color} ></Caractere>);
+    myloop.push(<Caractere key={i} param={arrKeyboard.keyboard[i].caracter} color={arrKeyboard.keyboard[i].color} ></Caractere>);
   }
 
   return (

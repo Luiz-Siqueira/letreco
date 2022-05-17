@@ -9,10 +9,10 @@ export default function AuthProvider({ children }) {
     const [corGrid, setcorGrid] = useState([]);
     const [storageKeyboard, setStorageKeyboard] = useState([]);
     const [keyboardColor, setKeyboardColor] = useState([]);
-
-
+    const [modalVisible, setModalVisible] = useState(false);
+    let color = []
     const arrKeyboard = {
-        teste: [
+        keyboard: [
             { key: "1", caracter: "A", color: "black" },
             { key: "2", caracter: "B", color: "black" },
             { key: "3", caracter: "C", color: "black" },
@@ -53,11 +53,11 @@ export default function AuthProvider({ children }) {
     }
 
     async function enterAction() {
-        // getAsync()
         CheckText();
 
         if (textKeyboard.length == 5) {
             setArrPalavra((oldArray) => [...oldArray, textKeyboard]);
+            console.log(arrPalavra)
             setTextKeyboard("");
         }
     }
@@ -65,89 +65,47 @@ export default function AuthProvider({ children }) {
     function CheckText() {
         let palavra = ["A", "V", "I", "A", "O"];
         let palavraUser = textKeyboard.split("");
-        let color = [];
-        for (let index = 0; index < palavra.length; index++) {
-            if (palavra.indexOf(palavraUser[index]) != -1) {
-                if (palavraUser[index] == palavra[index]) {
-                    let count = 0;
-                    let indiceCor = 0;
-                    palavra.forEach((letra) => {
-                        if (letra === palavraUser[index]) count++;
-                    });
-                    if (count > 1) {
-                        palavraUser.forEach((letra, indice) => {
-                            if (letra === palavraUser[index]) {
-                                if (color[indice] == "orange") {
-                                    color[indice] = "gray";
-                                }
-                            }
-                        });
-                    }
-
-                    arrKeyboard.teste.forEach((letra, indice) => {
-                        if (palavraUser[index] == letra.caracter) {
-                            arrKeyboard.teste[indice].color = "green";
-                            setKeyboardColor((oldArray) => [
-                                ...oldArray,
-                                arrKeyboard.teste[indice],
-                            ]);
-                        }
-                    });
-                    color.push("green");
-                } else {
-                    let count = 0;
-                    let indiceCor = 0;
-                    palavra.forEach((letra) => {
-                        if (letra === palavraUser[index]) count++;
-                    });
-                    if (count > 1) {
-                        palavraUser.forEach((letra, indice) => {
-                            if (letra === palavraUser[index]) {
-                                if (color[indice] == "green" || color[indice] == "orange") {
-                                    indiceCor++;
-                                }
-                            }
-                        });
-                    }
-
-                    if (indiceCor < count) {
-                        arrKeyboard.teste.forEach((letra, indice) => {
-                            if (palavraUser[index] == letra.caracter) {
-                                arrKeyboard.teste[indice].color = "orange";
-                                setKeyboardColor((oldArray) => [
-                                    ...oldArray,
-                                    arrKeyboard.teste[indice],
-                                ]);
-                            }
-                        });
-                        color.push("orange");
-                    } else {
-                        arrKeyboard.teste.forEach((letra, indice) => {
-                            if (palavraUser[index] == letra.caracter) {
-                                arrKeyboard.teste[indice].color = "gray";
-                                setKeyboardColor((oldArray) => [
-                                    ...oldArray,
-                                    arrKeyboard.teste[indice],
-                                ]);
-                            }
-                        });
-                        color.push("gray");
+        let arr = [];
+        var countsPalavra = {};
+        palavra.forEach(function(x) { countsPalavra[x] = (countsPalavra[x] || 0)+1; });
+        var countsPalavraUser = {};
+        palavraUser.forEach(function(x) { countsPalavraUser[x] = (countsPalavraUser[x] || 0)+1; });
+        for (let index = 0; index < 5; index++) {
+            let teste = palavra.find(element => element == palavraUser[index]);
+            if(teste){
+                // pelo menos existe a letra no array
+                if(palavra[index] == palavraUser[index]){
+                    arr[index] = 'green'
+                }else{
+                 // ja esta reconhecendo quando tem duas letras iguais falta ajustar para colcoar cor só na primeira
+                    if(countsPalavraUser[palavraUser[index]] == countsPalavra[palavraUser[index]]){
+                    console.log('GOOOOL')
+                    arr[index] = 'orange'
+                    }else{
+                        arr[index] = 'gray'
                     }
                 }
-            } else {
-                arrKeyboard.teste.forEach((letra, indice) => {
-                    if (palavraUser[index] == letra.caracter) {
-                        arrKeyboard.teste[indice].color = "gray";
-                        setKeyboardColor((oldArray) => [
-                            ...oldArray,
-                            arrKeyboard.teste[indice],
-                        ]);
-                    }
-                });
-                color.push("gray");
+            }else{
+                //ja colocou a cor no indice do array
+                arr[index] = 'gray'
             }
         }
-        setcorGrid((oldArray) => [...oldArray, color]);
+
+        setKeyboardColor(arr)
+        setcorGrid((oldArray) =>[...oldArray, arr])
+        console.log('counts',countsPalavra)
+        console.log('counts',countsPalavraUser)
+    }
+
+    function checkColor(color) {
+        let countColor = 0
+        color.forEach((element,index)=>{
+            if(element == 'green') countColor++
+        })
+
+        if(countColor == 5){
+            setModalVisible(true)
+        }
     }
 
     function RemoveText() {
@@ -170,6 +128,7 @@ export default function AuthProvider({ children }) {
                 getText,
                 enterAction,
                 RemoveText,
+                modalVisible
             }}
         >
             {children}
