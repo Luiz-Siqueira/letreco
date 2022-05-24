@@ -57,9 +57,24 @@ export default function AuthProvider({ children }) {
 
         if (textKeyboard.length == 5) {
             setArrPalavra((oldArray) => [...oldArray, textKeyboard]);
-            console.log(arrPalavra)
             setTextKeyboard("");
         }
+    }
+
+    function colorKeyboard(color,palavra) {
+        if(keyboardColor){
+            keyboardColor.forEach((element,indice)=>{
+                if(element.caracter == palavra && element.color == 'black')
+                element.color = color
+            })
+        }else{
+            arrKeyboard.keyboard.forEach((element,indice)=>{
+                if(element.caracter == palavra && element.color == 'black')
+                element.color = color
+            })
+        }
+        setKeyboardColor(arrKeyboard.keyboard)
+
     }
 
     function CheckText() {
@@ -70,31 +85,33 @@ export default function AuthProvider({ children }) {
         palavra.forEach(function(x) { countsPalavra[x] = (countsPalavra[x] || 0)+1; });
         var countsPalavraUser = {};
         palavraUser.forEach(function(x) { countsPalavraUser[x] = (countsPalavraUser[x] || 0)+1; });
-        for (let index = 0; index < 5; index++) {
-            let teste = palavra.find(element => element == palavraUser[index]);
-            if(teste){
-                // pelo menos existe a letra no array
-                if(palavra[index] == palavraUser[index]){
-                    arr[index] = 'green'
-                }else{
-                 // ja esta reconhecendo quando tem duas letras iguais falta ajustar para colcoar cor só na primeira
-                    if(countsPalavraUser[palavraUser[index]] == countsPalavra[palavraUser[index]]){
-                    console.log('GOOOOL')
+        palavra.forEach(function(element,index){
+        let teste = palavra.find(element => element == palavraUser[index]);
+
+            if(element == palavraUser[index]){
+                arr[index] = 'green'
+                colorKeyboard('green',palavraUser[index])
+           
+            }else if(teste != undefined && element != palavraUser[index]){
+                if(countsPalavraUser[palavraUser[index]] == countsPalavra[palavraUser[index]]){
                     arr[index] = 'orange'
-                    }else{
-                        arr[index] = 'gray'
-                    }
+                    colorKeyboard('orange',palavraUser[index])
+                }else if(countsPalavraUser[palavraUser[index]] < countsPalavra[palavraUser[index]]){
+                    arr[index] = 'orange'
+                    colorKeyboard('orange',palavraUser[index])
+                }else{
+                    countsPalavraUser[palavraUser[index]] = countsPalavraUser[palavraUser[index]] - 1;
+                    arr[index] = 'gray'
+                    colorKeyboard('gray',palavraUser[index])
                 }
             }else{
-                //ja colocou a cor no indice do array
                 arr[index] = 'gray'
+                colorKeyboard('gray',palavraUser[index])
             }
-        }
+        })
 
-        setKeyboardColor(arr)
+
         setcorGrid((oldArray) =>[...oldArray, arr])
-        console.log('counts',countsPalavra)
-        console.log('counts',countsPalavraUser)
     }
 
     function checkColor(color) {
