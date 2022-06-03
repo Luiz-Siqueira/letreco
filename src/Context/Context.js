@@ -2,15 +2,12 @@ import React, { useState, createContext, useEffect } from "react";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
 export const AuthContext = createContext({});
-
 export default function AuthProvider({ children }) {
     const [textKeyboard, setTextKeyboard] = useState();
     const [arrPalavra, setArrPalavra] = useState([]);
     const [corGrid, setcorGrid] = useState([]);
-    const [storageKeyboard, setStorageKeyboard] = useState([]);
     const [keyboardColor, setKeyboardColor] = useState([]);
     const [modalVisible, setModalVisible] = useState(false);
-    let color = []
     const arrKeyboard = {
         keyboard: [
             { key: "1", caracter: "A", color: "black" },
@@ -53,28 +50,31 @@ export default function AuthProvider({ children }) {
     }
 
     async function enterAction() {
-        CheckText();
-
         if (textKeyboard.length == 5) {
+      
             setArrPalavra((oldArray) => [...oldArray, textKeyboard]);
+       
+            
             setTextKeyboard("");
+            CheckText();
         }
     }
 
-    function colorKeyboard(color,palavra) {
-        if(keyboardColor){
-            keyboardColor.forEach((element,indice)=>{
-                if(element.caracter == palavra && element.color == 'black')
-                element.color = color
-            })
-        }else{
-            arrKeyboard.keyboard.forEach((element,indice)=>{
-                if(element.caracter == palavra && element.color == 'black')
-                element.color = color
-            })
+    function colorKeyboard(color, palavra) {
+        if (keyboardColor.length > 0) {
+            keyboardColor.forEach((element, indice) => {
+                if (element.caracter == palavra && element.color == "black") {
+                    element.color = color;
+                }
+            });
+            setKeyboardColor(keyboardColor);
+        } else {
+            arrKeyboard.keyboard.forEach((element, indice) => {
+                if (element.caracter == palavra && element.color == "black")
+                    element.color = color;
+            });
+            setKeyboardColor(arrKeyboard.keyboard);
         }
-        setKeyboardColor(arrKeyboard.keyboard)
-
     }
 
     function CheckText() {
@@ -82,47 +82,61 @@ export default function AuthProvider({ children }) {
         let palavraUser = textKeyboard.split("");
         let arr = [];
         var countsPalavra = {};
-        palavra.forEach(function(x) { countsPalavra[x] = (countsPalavra[x] || 0)+1; });
+
+        palavra.forEach(function (x) {
+            countsPalavra[x] = (countsPalavra[x] || 0) + 1;
+        });
         var countsPalavraUser = {};
-        palavraUser.forEach(function(x) { countsPalavraUser[x] = (countsPalavraUser[x] || 0)+1; });
-        palavra.forEach(function(element,index){
-        let teste = palavra.find(element => element == palavraUser[index]);
+        palavraUser.forEach(function (x) {
+            countsPalavraUser[x] = (countsPalavraUser[x] || 0) + 1;
+        });
 
-            if(element == palavraUser[index]){
-                arr[index] = 'green'
-                colorKeyboard('green',palavraUser[index])
-           
-            }else if(teste != undefined && element != palavraUser[index]){
-                if(countsPalavraUser[palavraUser[index]] == countsPalavra[palavraUser[index]]){
-                    arr[index] = 'orange'
-                    colorKeyboard('orange',palavraUser[index])
-                }else if(countsPalavraUser[palavraUser[index]] < countsPalavra[palavraUser[index]]){
-                    arr[index] = 'orange'
-                    colorKeyboard('orange',palavraUser[index])
-                }else{
-                    countsPalavraUser[palavraUser[index]] = countsPalavraUser[palavraUser[index]] - 1;
-                    arr[index] = 'gray'
-                    colorKeyboard('gray',palavraUser[index])
+        palavra.forEach(function (element, index) {
+            let teste = palavra.find((element) => element == palavraUser[index]);
+            if (element == palavraUser[index]) {
+                arr[index] = "green";
+                colorKeyboard("green", palavraUser[index]);
+            } else if (teste != undefined && element != palavraUser[index]) {
+                if (
+                    countsPalavraUser[palavraUser[index]] ==
+                    countsPalavra[palavraUser[index]]
+                ) {
+                    arr[index] = "orange";
+                    colorKeyboard("orange", palavraUser[index]);
+                } else if (
+                    countsPalavraUser[palavraUser[index]] <
+                    countsPalavra[palavraUser[index]]
+                ) {
+                    arr[index] = "orange";
+                    colorKeyboard("orange", palavraUser[index]);
+                } else {
+                    countsPalavraUser[palavraUser[index]] =
+                        countsPalavraUser[palavraUser[index]] - 1;
+                    arr[index] = "gray";
+                    colorKeyboard("gray", palavraUser[index]);
                 }
-            }else{
-                arr[index] = 'gray'
-                colorKeyboard('gray',palavraUser[index])
+            } else {
+                arr[index] = "gray";
+                colorKeyboard("gray", palavraUser[index]);
             }
-        })
+        });
 
-
-        setcorGrid((oldArray) =>[...oldArray, arr])
+        setcorGrid((oldArray) => [...oldArray, arr]);
+        checkColor(arr);
     }
 
     function checkColor(color) {
-        let countColor = 0
-        color.forEach((element,index)=>{
-            if(element == 'green') countColor++
-        })
-
-        if(countColor == 5){
-            setModalVisible(true)
+        let countColor = 0;
+        color.forEach((element, index) => {
+            if (element == "green") countColor++;
+        });
+        if (countColor == 5) {
+            setModalVisible(true);
         }
+        if(arrPalavra.length == 5){
+            setModalVisible(true);
+        }
+
     }
 
     function RemoveText() {
@@ -133,6 +147,13 @@ export default function AuthProvider({ children }) {
         }
     }
 
+    function resetGame(){
+        setArrPalavra([])
+        setModalVisible(false)
+        setcorGrid([]);
+        setKeyboardColor([])
+    }
+
     return (
         <AuthContext.Provider
             value={{
@@ -141,11 +162,11 @@ export default function AuthProvider({ children }) {
                 corGrid,
                 arrKeyboard,
                 keyboardColor,
-                storageKeyboard,
                 getText,
                 enterAction,
                 RemoveText,
-                modalVisible
+                modalVisible,
+                resetGame
             }}
         >
             {children}

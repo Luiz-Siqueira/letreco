@@ -7,7 +7,7 @@ import Content from '../Content';
 import Default from '../Default'
 import Midle from '../Midle'
 export default function Grid() {
-  const {textKeyboard,arrPalavra,corGrid,modalVisible} = useContext(AuthContext);
+  const {textKeyboard,arrPalavra,corGrid,modalVisible,resetGame} = useContext(AuthContext);
 var myloop = [];
 
 if(!arrPalavra[0]){
@@ -55,8 +55,7 @@ for (let i = 0; i < 6; i++) {
           <Text style={styles.TextContainerModal}>You win!</Text>
           <Text style={styles.TextContainerModal}>Do you want play more one game?</Text>
           <View style={styles.containerButton}>
-            <TouchableOpacity style={styles.Button}><Text style={styles.TextButton}>Yes</Text></TouchableOpacity>
-            <TouchableOpacity style={styles.Button}><Text style={styles.TextButton}>No</Text></TouchableOpacity>
+            <TouchableOpacity onPress={() => resetGame()} style={styles.Button}><Text style={styles.TextButton}>Yes</Text></TouchableOpacity>
           </View>
         </View>
       </Modal>
@@ -105,7 +104,7 @@ const styles = StyleSheet.create({
     marginTop:20,
   },
   Button:{
-    width:'45%',
+    width:'100%',
     height:60,
     backgroundColor:'green',
     alignItems: 'center',
